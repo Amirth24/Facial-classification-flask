@@ -14,4 +14,4 @@ Face embeddings are 128-d(128-dimensional) vectors pertaining to facial features
 
 By creating face embeddings you are converting a face image into numerical data. That data is then represented as a vector in a latent semantic space. The closer the embeddings are to each other in the latent space, the more likely they are of the same person.
 
-![Clustering using face embeddings](https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro.medium.com%2Fv2%2Fresize%3Afit%3A1370%2F0*34kdbSVfOHQNPZuT.png&tbnid=sB_fXZcqZamcwM&vet=10CBYQxiAoB2oXChMIsLicifqc_gIVAAAAAB0AAAAAEAY..i&imgrefurl=https%3A%2F%2Ftechmusings.optisolbusiness.com%2Fface-recognition-with-facenet-b6ba474b5180&docid=VQoKMGilEMwmUM&w=685&h=594&itg=1&q=face%20embedding&client=firefox-b-d&ved=0CBYQxiAoB2oXChMIsLicifqc_gIVAAAAAB0AAAAAEAY)
+![Clustering using face embeddings](https://mobidev.biz/wp-content/uploads/2019/06/instant-face-recognition-1.png)
