@@ -1,30 +1,8 @@
-{%extends "bootstrap/base.html" %}
-{%block title%} Home {%endblock%}
+{%extends "base.html"%}
 
-{%block navbar%}
-<nav class="navbar  navbar-inverse">
-    <div class="navbar-header">
+{%block title%} Face Classifier {%endblock%}
 
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#header-menu"
-            aria-controls="navbarSupportedContent">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a href="/" class="navbar-brand">Face Classifier</a>
 
-    </div>
-
-    <div class="collapse navbar-collapse" id="header-menu">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#" class="">Home</a></li>
-            <li><a href="#" class=""></a></li>
-            <li><a href="#" class=""></a></li>
-
-        </ul>
-    </div>
-</nav>
-{%endblock%}
 
 {%block content%}
 <div class="container-fluid">
@@ -39,27 +17,22 @@
         <div class="col-md-6">
 
             <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="button-container">
-                        <!-- <input type="file" class="btn btn-primary"> -->
+                <form action="/upload" method="post" enctype=multipart/form-data>
+                <div class="panel-body text-center">
                         <label class="custom-file-upload">
                             <span class="btn btn-primary">
-                                Browse&hellip; <input type="file" style="display: none;" id="file" multiple />
-                            </span>
+                                Browse&hellip; <input name='files' type="file" style="display: none;" id="file" multiple onchange="listFile()"/>
+                            </span><br>
                             Select the files..
                         </label>
-
-
-                    </div>
-
                 </div>
-                
+
+                <div class="panel-footer text-center">
+                    <input type='submit' class="btn btn-outline btn-primary" value="Upload">
+                </div>
+
+            </form>
             </div>
-
-
-
-
-
         </div>
 
         
@@ -69,26 +42,95 @@
                 <div class="panel-heading">Files to be uploaded</div>
 
                 <div class="panel-body">
-                    <div class="list-group">
+                    <div id='files-list' class="list-group">
 
 
-                        <div class="list-group-item  border border-primary">
-                            <p class="list-group-item-text">No files uploaded...</p>
-                        </div>
-                        <div class="list-group-item  border border-primary">
-                            <p class="list-group-item-text">No files uploaded...</p>
-                        </div>
 
                     </div>
 
                 </div>
 
                 <div class="panel-footer">
-                    <div class="btn btn-outline btn-primary">Upload</div>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                        <li class="text-danger" style="list-style-type: none;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
                 </div>
+
 
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    const filesInput = document.getElementById('file');
+    let fileLoaded = false;
+
+    function createListElem(text, file){
+
+        let li = document.createElement('div');
+        li.classList.add('list-group-item');
+
+        const elem = `
+            
+            <p class='list-group-item-text'>
+                ${text}
+            
+            </p>
+        `;
+
+        li.innerHTML = elem;
+        return li;
+    }
+
+    function removeFile(text){
+        console.log(filesInput.files)
+    }
+    
+    function listFile(){
+    if ('files' in filesInput) {
+        if (filesInput.files.length == 0){
+
+            let li  = createListElem('No file Selected.');
+            document.querySelector('#files-list').append(li);
+        }else {
+
+            if (!fileLoaded){
+
+                document.querySelector('#files-list').innerHTML = '';   
+
+                fileLoaded = true;
+            }
+
+            const files = filesInput.files;
+
+            for (let i = 0; i< files.length; i++){
+                if ('name' in file){
+            
+                    document.querySelector('#files-list').append(createListElem(files[i].name));
+                }
+
+
+            }
+        }        
+    }
+
+    }
+
+    listFile();
+
+
+
+
+
+</script>
+
 {%endblock%}
