@@ -1,0 +1,94 @@
+{%extends "bootstrap/base.html" %}
+{%block title%} Home {%endblock%}
+
+{%block navbar%}
+<nav class="navbar  navbar-inverse">
+    <div class="navbar-header">
+
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#header-menu"
+            aria-controls="navbarSupportedContent">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand">Face Classifier</a>
+
+    </div>
+
+    <div class="collapse navbar-collapse" id="header-menu">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#" class="">Home</a></li>
+            <li><a href="#" class=""></a></li>
+            <li><a href="#" class=""></a></li>
+
+        </ul>
+    </div>
+</nav>
+{%endblock%}
+
+{%block content%}
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h2 class="">Classify images based on faces.</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad hic necessitatibus suscipit consectetur perspiciatis porro iste id qui, laboriosam atque.</p>
+    </div>
+
+    <div class="row">
+
+
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="button-container">
+                        <!-- <input type="file" class="btn btn-primary"> -->
+                        <label class="custom-file-upload">
+                            <span class="btn btn-primary">
+                                Browse&hellip; <input type="file" style="display: none;" id="file" multiple />
+                            </span>
+                            Select the files..
+                        </label>
+
+
+                    </div>
+
+                </div>
+                
+            </div>
+
+
+
+
+
+        </div>
+
+        
+        <div class="col col-md-6">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">Files to be uploaded</div>
+
+                <div class="panel-body">
+                    <div class="list-group">
+
+
+                        <div class="list-group-item  border border-primary">
+                            <p class="list-group-item-text">No files uploaded...</p>
+                        </div>
+                        <div class="list-group-item  border border-primary">
+                            <p class="list-group-item-text">No files uploaded...</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <div class="btn btn-outline btn-primary">Upload</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
