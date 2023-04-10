@@ -1,14 +1,17 @@
 import os
 import uuid
-import json
 
-from flask import Flask, render_template, redirect, request, flash, session, current_app
+from flask import Flask, render_template, redirect, request, flash, session
 from flask_bootstrap import Bootstrap
 
 
 from app.utils import handle_file
 
 bootstrap = Bootstrap()
+
+UPLOAD_FOLDER = os.path.abspath('upload')
+
+
 
 def create_app():
 
@@ -95,3 +98,16 @@ def create_app():
 
 
     return app
+
+
+
+
+# App exit handlers
+import atexit
+import shutil
+def cleanup_upload_folder():
+    if os.path.exists(UPLOAD_FOLDER):
+        shutil.rmtree(UPLOAD_FOLDER)
+
+
+atexit.register(cleanup_upload_folder)
