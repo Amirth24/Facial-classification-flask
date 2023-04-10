@@ -17,6 +17,7 @@ def create_app():
     
     app.config['BOOTSTRAP_SERVE_LOCAL'] = True
     app.config['SECRET_KEY'] = 'this is a secreate'
+    app.config['SESSION_PERMANENT'] = False
     
     bootstrap.init_app(app)
 
@@ -30,10 +31,14 @@ def create_app():
         os.mkdir(os.path.abspath('upload'))
 
     # app.config.from_file('config.json', load=json.load)
+    
+    from . import dashboard
+    app.register_blueprint(dashboard.dasb_board_bp,url_prefix='/dashboard')
+
 
     @app.route('/')
     def index():
-        userid = session['userid']
+        userid = session.get('userid')
         if not userid:
             userid = uuid.uuid1()
             app.logger.info('Creating user', userid)
@@ -51,9 +56,20 @@ def create_app():
 
         return render_template('index.html'), 200
     
+    
+    
 
     @app.route('/upload', methods=['GET','POST'])
     def upload():
+
+        if request.method == 'GET':
+            
+            if session.get('userid'):
+                return redirect('dashboard.dashboard')
+            
+            return redirect('/')
+
+
         if 'files' not in request.files :
             flash('No file part')
             return redirect('/')
@@ -74,7 +90,7 @@ def create_app():
                 return redirect('/')
 
        
-        return render_template('upload.html')
+        return redirect('dashboard.dashboard')
     
 
 

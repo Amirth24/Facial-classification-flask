@@ -11,15 +11,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand">Face Classifier</a>
+        <a href="{{url_for('index')}}" class="navbar-brand">Face Classifier</a>
 
     </div>
 
     <div class="collapse navbar-collapse" id="header-menu">
         <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#" class="">Home</a></li>
-            <li><a href="#" class=""></a></li>
-            <li><a href="#" class=""></a></li>
+            <li class="active"><a href="{{url_for('index')}}" >Home</a></li>
+            <li><a href="{{url_for('dashboard.dashboard', method='GET')}}" >Dashboard</a></li>
+            <li><a href="{{url_for('dashboard.dashboard')}}" >Settings</a></li>
 
         </ul>
     </div>
