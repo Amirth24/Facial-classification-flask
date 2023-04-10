@@ -1,7 +1,7 @@
 import os
 import uuid
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, url_for
 from flask_bootstrap import Bootstrap
 
 
@@ -10,7 +10,6 @@ from app.utils import handle_file
 bootstrap = Bootstrap()
 
 UPLOAD_FOLDER = os.path.abspath('upload')
-
 
 
 def create_app():
@@ -50,7 +49,10 @@ def create_app():
 
         
         if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], str(userid))):
-            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], str(userid)))    
+            
+            
+            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], str(userid)))
+            os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'], str(userid)+'/imgs'))    
             app.logger.info('Folder for '+str(userid)+' created.')
 
 
@@ -60,6 +62,7 @@ def create_app():
         return render_template('index.html'), 200
     
     
+    from app.core import Classifier
     
 
     @app.route('/upload', methods=['GET','POST'])
@@ -68,7 +71,7 @@ def create_app():
         if request.method == 'GET':
             
             if session.get('userid'):
-                return redirect('dashboard.dashboard')
+                return redirect('/')
             
             return redirect('/')
 
@@ -89,11 +92,13 @@ def create_app():
         # if files and allowed_file(files.filename):
         for file_ in files:
             st  = handle_file(file_)
-            if not st : 
+            if not st :
                 return redirect('/')
+            
+        Classifier('models', os.path.join(app.config['UPLOAD_FOLDER'], str(session['userid']))).process()
 
        
-        return redirect('dashboard.dashboard')
+        return redirect(url_for('dashboard.dashboard'))
     
 
 
@@ -109,5 +114,4 @@ def cleanup_upload_folder():
     if os.path.exists(UPLOAD_FOLDER):
         shutil.rmtree(UPLOAD_FOLDER)
 
-
-atexit.register(cleanup_upload_folder)
+# atexit.register(cleanup_upload_folder)

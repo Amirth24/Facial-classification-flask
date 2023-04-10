@@ -33,5 +33,5 @@ def handle_file(file_):
             return False
 
 
-    file_.save(os.path.join(current_app.config['UPLOAD_FOLDER'], str(session['userid'])+'/'+ filename ))
+    file_.save(os.path.join(current_app.config['UPLOAD_FOLDER'], str(session['userid'])+'/imgs/'+ filename ))
     return True
